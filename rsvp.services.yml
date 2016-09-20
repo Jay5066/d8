@@ -1,0 +1,7 @@
+services:
+  rsvp.rsvpservice:
+    class: Drupal\rsvp\RsvpService
+  rsvp.rsvpsubscriber:
+    class: Drupal\rsvp\RsvpSubscriber
+    tags:
+      - { name: event_subscriber }

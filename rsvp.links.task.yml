@@ -1,0 +1,5 @@
+rsvp.needs-review:
+  route_name: rsvp.testPage
+  title: 'Needs Review'
+  weight: 11
+  base_route: workbench.content

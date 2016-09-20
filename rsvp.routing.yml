@@ -1,0 +1,23 @@
+rsvp.form:
+  path: 'admin/rsvplist'
+  defaults:
+    _title: 'RSVP to this Event'
+    _form: '\Drupal\rsvp\Form\RsvpForm'
+  requirements:
+    _permission: 'view rsvp'
+# Provides admin settings page path with following config
+rsvp.admin_settings:
+  path: '/admin/config/content/rsvp'
+  defaults:
+    _title: 'RSVP List Settings'
+    _form: '\Drupal\rsvp\Form\RsvpSettingsForm'
+  requirements:
+    _permission: 'administer rsvp'
+# Provides test Rsvp page with associated controller
+rsvp.testPage:
+  path: '/admin/rsvp/page'
+  defaults:
+    _controller: '\Drupal\rsvp\Controller\RsvpController::content'
+    _title: 'Welcome to test RSVP page'
+  requirements:
+    _permission: 'administer rsvp'
