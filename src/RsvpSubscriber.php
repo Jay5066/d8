@@ -15,6 +15,7 @@ use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation;
+use Drupal\rsvp\RsvpEvent;
 
 /**
  * Subscribes to the kernal request event to comltetely obliterate the default content.
@@ -56,6 +57,13 @@ class RsvpSubscriber implements EventSubscriberInterface {
   public function checkForCustomGenericEvent(GenericEvent $event) {
     $event->setArgument('string','This is now coming from RsvpSubscriber.php');
   }
+
+  /**
+   * This will override custom genericEvent value coming from RSVPController.
+   */
+  public function checkForCustomEvent(RsvpEvent $event) {
+    $event->setString('This is coming from custom Event Yey!!');
+  }
   /**
    * {@inheritdoc}
    */
@@ -63,7 +71,8 @@ class RsvpSubscriber implements EventSubscriberInterface {
     $events = array();
     //$events[KernelEvents::RESPONSE][] = array('onCustomResponse',100);
     //$events[KernelEvents::REQUEST][] = array('checkForCustomRedirect');
-    $events['rsvp.genericEvent'][] = array('checkForCustomGenericEvent');
+    //$events['rsvp.genericEvent'][] = array('checkForCustomGenericEvent');
+    $events['rsvp.customEvent'][] = array('checkForCustomEvent');
     return $events;
   }
 }

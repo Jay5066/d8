@@ -9,7 +9,7 @@ namespace Drupal\rsvp\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Symfony\Component\EventDispatcher\GenericEvent;
-
+use Drupal\rsvp\RsvpEvent;
   /**
    * Defines what this controller is about;
    */
@@ -26,11 +26,17 @@ use Symfony\Component\EventDispatcher\GenericEvent;
      */
     public function content() {
       //This is how we would create custom generic event.
-      $subject = '';
-      $arguments = array('string' => 'and this is the default value from custom GenericEvent.');
-      $event = new GenericEvent($subject,$arguments);
-      \Drupal::service('event_dispatcher')->dispatch('rsvp.genericEvent',$event);
-      $string = $event->getArgument('string');
+      //$subject = '';
+      //$arguments = array('string' => 'and this is the default value from custom GenericEvent.');
+      // $event = new GenericEvent($subject,$arguments);
+      //\Drupal::service('event_dispatcher')->dispatch('rsvp.genericEvent',$event);
+      //$string = $event->getArgument('string');
+
+      //Custom event
+      $string = "Custom string coming from RSVP Event";
+      $event = new RsvpEvent($string);
+      \Drupal::service('event_dispatcher')->dispatch('rsvp.customEvent',$event);
+      $string = $event->getString();
 
       //Get Username;(Drupal service);
       $account = \Drupal::currentUser();
