@@ -13,6 +13,7 @@ use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Cmf\Component\Routing\RouteObjectInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\EventDispatcher\GenericEvent;
 use Symfony\Component\HttpFoundation;
 
 /**
@@ -50,11 +51,19 @@ class RsvpSubscriber implements EventSubscriberInterface {
     }
   }
   /**
+   * This will override custom genericEvent value coming from RSVPController.
+   */
+  public function checkForCustomGenericEvent(GenericEvent $event) {
+    $event->setArgument('string','This is now coming from RsvpSubscriber.php');
+  }
+  /**
    * {@inheritdoc}
    */
   public static function getSubscribedEvents() {
-    $events[KernelEvents::RESPONSE][] = array('onCustomResponse',100);
-    $events[KernelEvents::REQUEST][] = array('checkForCustomRedirect');
+    $events = array();
+    //$events[KernelEvents::RESPONSE][] = array('onCustomResponse',100);
+    //$events[KernelEvents::REQUEST][] = array('checkForCustomRedirect');
+    $events['rsvp.genericEvent'][] = array('checkForCustomGenericEvent');
     return $events;
   }
 }
